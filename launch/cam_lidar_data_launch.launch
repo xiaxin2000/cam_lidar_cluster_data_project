@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="projection_matrix_topic_" default="/projection_matrix" />
+  <arg name="camera_info_topic_" default="/camera_info" />
+  <arg name="image_src_" default="/image_raw" /> 
+  <arg name="object_src_" default="/detection/image_detector/objects" />
+  <arg name="lidar_src_" default="/velodyne_points" />
+  <arg name="lidar_frustum_out_" default="/lidar_frustum_points" />
+
+  <node pkg="cam_lidar_cluster_data_project" type="frustum_cluster" name="frustum_cluster" output="screen">
+    <param name="projection_matrix_topic"  value="$(arg projection_matrix_topic_)"/> 
+    <param name="camera_info_topic" value="$(arg camera_info_topic_)"/>
+    <param name="image_src" value="$(arg image_src_)"/>
+    <param name="object_src" value="$(arg object_src_)"/>
+    <param name="lidar_src" value="$(arg lidar_src_)"/>
+    <param name="lidar_frustum_out" value="$(arg lidar_frustum_out_)"/>
+
+  </node>
+
+</launch>
