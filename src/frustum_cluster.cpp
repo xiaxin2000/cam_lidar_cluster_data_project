@@ -259,7 +259,7 @@ pcl::PointCloud<PointT> to_Frustum_points_3D(pcl::PointCloud<PointT> Points_3D,a
 
       for (auto const &object: in_objects.objects)
       {
-          if (IsObjectValid(object))
+          if (IsObjectValid(object)  && object.label=="car" )
           {
             cv::Rect rect;
             rect.x = object.x;
