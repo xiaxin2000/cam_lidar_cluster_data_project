@@ -319,7 +319,7 @@ void segmentByDistance(const pcl::PointCloud<pcl::PointXYZ>::Ptr in_cloud_ptr,
 
   else
   {
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloud_segments_array(5);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloud_segments_array(2);
     for (unsigned int i = 0; i < cloud_segments_array.size(); i++)
     {
       pcl::PointCloud<pcl::PointXYZ>::Ptr tmp_cloud(new pcl::PointCloud<pcl::PointXYZ>);
@@ -339,22 +339,34 @@ void segmentByDistance(const pcl::PointCloud<pcl::PointXYZ>::Ptr in_cloud_ptr,
       {
         cloud_segments_array[0]->points.push_back(current_point);
       }
-      else if (origin_distance < _clustering_ranges[1])
+      else
       {
         cloud_segments_array[1]->points.push_back(current_point);
-
-      }else if (origin_distance < _clustering_ranges[2])
-      {
-        cloud_segments_array[2]->points.push_back(current_point);
-
-      }else if (origin_distance < _clustering_ranges[3])
-      {
-        cloud_segments_array[3]->points.push_back(current_point);
-
-      }else
-      {
-        cloud_segments_array[4]->points.push_back(current_point);
       }
+
+      // if (origin_distance < _clustering_ranges[0])
+      // {
+      //   cloud_segments_array[0]->points.push_back(current_point);
+      // }
+      // else if (origin_distance < _clustering_ranges[1])
+      // {
+      //   cloud_segments_array[1]->points.push_back(current_point);
+
+      // }
+
+      // else if (origin_distance < _clustering_ranges[2])
+      // {
+      //   cloud_segments_array[2]->points.push_back(current_point);
+
+      // }else if (origin_distance < _clustering_ranges[3])
+      // {
+      //   cloud_segments_array[3]->points.push_back(current_point);
+
+      // }else
+      // {
+      //   cloud_segments_array[4]->points.push_back(current_point);
+      // }
+
     }
 
     std::vector<ClusterPtr> local_clusters;

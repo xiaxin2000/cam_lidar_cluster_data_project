@@ -14,8 +14,11 @@
   <arg name="cluster_merge_threshold_" default="1.5" />
   <arg name="output_frame_" default="velodyne" />
   <arg name="clustering_distance_" default="0.75" />
-  <arg name="clustering_distances_" default="[0.5,1.1,1.6,2.1,2.6]" />
-  <arg name="clustering_ranges_" default="[15,30,45,60]" />
+  
+  <!-- <arg name="clustering_distances_" default="[0.5,1.1,1.6,2.1,2.6]" /> -->
+  <!-- <arg name="clustering_ranges_" default="[15,30,45,60]" /> -->
+  <arg name="clustering_distances_" default="[0.5,2.1]" />
+  <arg name="clustering_ranges_" default="[30]" />
   <arg name="use_multiple_thres_" default="true" />
 
   <node pkg="cam_lidar_cluster_data_project" type="frustum_cluster" name="frustum_cluster" output="screen">
