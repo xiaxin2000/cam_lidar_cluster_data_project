@@ -767,10 +767,10 @@ pcl::PointCloud<PointT> to_Frustum_points_3D(pcl::PointCloud<PointT> Points_3D,a
       if (IsObjectValid(object)  && object.label=="car" )
       {
         cv::Rect rect;
-        rect.x = object.x;
+        rect.x = object.x+object.width*0.1;
         rect.y = object.y;
-        rect.width = object.width;
-        rect.height = object.height;
+        rect.width = object.width*0.8;
+        rect.height = object.height*0.8;
         pcl::PointCloud<pcl::PointXYZ>::Ptr bb_cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr colored_clustered_cloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
         autoware_msgs::Centroids centroids;
