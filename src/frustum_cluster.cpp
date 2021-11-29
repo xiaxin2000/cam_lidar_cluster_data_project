@@ -874,6 +874,9 @@ SyncedDetectionsCallback_lidar_cam(
 {
   pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>());
   pcl::fromROSMsg(*in_lidar_msg, *cloud);
+
+  _velodyne_header = in_lidar_msg->header;
+
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(*cloud, *cloud, indices);
 
