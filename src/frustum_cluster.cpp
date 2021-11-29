@@ -744,6 +744,9 @@ pcl::PointCloud<PointT> to_Frustum_points_3D(pcl::PointCloud<PointT> Points_3D,a
 
   PointT Point_3D;
 
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr colored_clustered_cloud_total_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
+  autoware_msgs::CloudClusterArray cloud_clusters_total;
+
 
   for (auto const &object: in_objects.objects)
   {
@@ -795,11 +798,21 @@ pcl::PointCloud<PointT> to_Frustum_points_3D(pcl::PointCloud<PointT> Points_3D,a
         {
           segmentByDistance(bb_cloud_ptr, colored_clustered_cloud_ptr, centroids,
                   cloud_clusters);
-          publishColorCloud(&_pub_cluster_cloud, colored_clustered_cloud_ptr);
-          centroids.header = _velodyne_header;
-          publishCentroids(&_centroid_pub, centroids, _output_frame, _velodyne_header);
-          cloud_clusters.header = _velodyne_header;
-          publishCloudClusters(&_pub_clusters_message, cloud_clusters, _output_frame, _velodyne_header);
+
+          if (!colored_clustered_cloud_ptr->empty())
+          {
+            for (int i = 0; i < colored_clustered_cloud_ptr->points.size(); ++i)
+            {
+              colored_clustered_cloud_total_ptr->points.push_back(colored_clustered_cloud_ptr->points[i]);
+            }
+
+            for (auto i = cloud_clusters.clusters.begin(); i != cloud_clusters.clusters.end(); i++)
+            {
+              cloud_clusters_total.clusters.push_back(*i);
+            }
+
+          }
+
         }
       }
 
@@ -807,6 +820,15 @@ pcl::PointCloud<PointT> to_Frustum_points_3D(pcl::PointCloud<PointT> Points_3D,a
       {
         points2cluster.push_back(points_inter);
       }
+  }
+
+  if (!colored_clustered_cloud_total_ptr->empty())
+  {
+    publishColorCloud(&_pub_cluster_cloud, colored_clustered_cloud_total_ptr);
+    // centroids.header = _velodyne_header;
+    // publishCentroids(&_centroid_pub, centroids, _output_frame, _velodyne_header);
+    cloud_clusters_total.header = _velodyne_header;
+    publishCloudClusters(&_pub_clusters_message, cloud_clusters_total, _output_frame, _velodyne_header);
   }
 
   if (!points2cluster.empty())
