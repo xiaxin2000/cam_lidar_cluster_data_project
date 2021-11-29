@@ -8,6 +8,16 @@
   <arg name="lidar_src_" default="/velodyne_points" />
   <arg name="lidar_frustum_out_" default="/lidar_frustum_points" />
 
+  <arg name="cluster_size_min_" default="5" />
+  <arg name="cluster_size_max_" default="100000" />
+  <arg name="pose_estimation_" default="false" /> 
+  <arg name="cluster_merge_threshold_" default="1.5" />
+  <arg name="output_frame_" default="velodyne" />
+  <arg name="clustering_distance_" default="0.75" />
+  <arg name="clustering_distances_" default="[0.5,1.1,1.6,2.1,2.6]" />
+  <arg name="clustering_ranges_" default="[15,30,45,60]" />
+  <arg name="use_multiple_thres_" default="true" />
+
   <node pkg="cam_lidar_cluster_data_project" type="frustum_cluster" name="frustum_cluster" output="screen">
     <param name="projection_matrix_topic"  value="$(arg projection_matrix_topic_)"/> 
     <param name="camera_info_topic" value="$(arg camera_info_topic_)"/>
@@ -15,6 +25,18 @@
     <param name="object_src" value="$(arg object_src_)"/>
     <param name="lidar_src" value="$(arg lidar_src_)"/>
     <param name="lidar_frustum_out" value="$(arg lidar_frustum_out_)"/>
+
+    <param name="cluster_size_min"  value="$(arg cluster_size_min_)"/> 
+    <param name="cluster_size_max" value="$(arg cluster_size_max_)"/>
+    <param name="pose_estimation" value="$(arg pose_estimation_)"/>
+    <param name="cluster_merge_threshold" value="$(arg cluster_merge_threshold_)"/>
+    <param name="output_frame" value="$(arg output_frame_)"/>
+    <param name="clustering_distance" value="$(arg clustering_distance_)"/>
+    <param name="clustering_distances" value="$(arg clustering_distances_)"/>
+    <param name="clustering_ranges" value="$(arg clustering_ranges_)"/>
+    <param name="use_multiple_thres" value="$(arg use_multiple_thres_)"/>
+
+
 
   </node>
 
